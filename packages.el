@@ -875,7 +875,7 @@
   (defun david/init-plantuml-mode ()
     (use-package plantuml-mode
       :config
-      (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+      (setq plantuml-jar-path "~/plantuml.jar")
       (setq plantuml-default-exec-mode 'jar)
 
       ;; Sample executable configuration
