@@ -24,16 +24,14 @@
 ;;; Code:
 (defvar private-path (concat (getenv "HOME") "/.emacs.d/private"))
 (defvar david-path (concat private-path "/david"))
-(progn
-  (server-start)
-  (unless (server-running-p)
-    (server-start)))
-
-
 (setq byte-compile-warnings '(cl-functions))
-(menu-bar-mode -1 )
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
 
 
 
+(setq org-hide-emphasis-markers t)
+;; Syntax highlight in #+BEGIN_SRC blocks
+(setq org-src-fontify-natively t)
+;; Don't prompt before running code in org
+(setq org-confirm-babel-evaluate nil)
+;; Fix an incompatibility between the ob-async and ob-ipython packages
+;; (setq ob-async-no-async-languages-alist '("ipython"))

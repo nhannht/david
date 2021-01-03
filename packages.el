@@ -292,20 +292,20 @@
     :after yasnippet
     ))
 (defun david/init-yasnippet ()
-(use-package yasnippet
-  :after (ivy-yasn helm-c-yasnippet)
-  :config
-  (defhydra hydra-yasnipet ()
-    ("i" ivy-yasnippet "ivy-yasnippet" :exit t :column "yas")
-    ("h" helm-yas-complete "helm" :exit t :column "yas")
-    ("n" yas-new-snippet "new snippet" :exit t :column "yas")
-    ("v" yas-visit-snippet-file "visit" :exit t :column "yas")
-    ("ac" aya-create "aya create-step 1" :exit t :column "sucker")
-    ("ax" aya-expand "aya repeat step 1" :exit t :column "sucker")
-    ("as" aya-persist-snippet "aya save snippet" :exit t :column "sucker"))
-  (global-set-key (kbd "C-c y") 'hydra-yasnipet/body)
-  (yas-global-mode 1)
-  ))
+  (use-package yasnippet
+    :after (ivy-yasnippet helm-c-yasnippet)
+    :config
+    (defhydra hydra-yasnipet ()
+      ("i" ivy-yasnippet "ivy-yasnippet" :exit t :column "yas")
+      ("h" helm-yas-complete "helm" :exit t :column "yas")
+      ("n" yas-new-snippet "new snippet" :exit t :column "yas")
+      ("v" yas-visit-snippet-file "visit" :exit t :column "yas")
+      ("ac" aya-create "aya create-step 1" :exit t :column "sucker")
+      ("ax" aya-expand "aya repeat step 1" :exit t :column "sucker")
+      ("as" aya-persist-snippet "aya save snippet" :exit t :column "sucker"))
+    (global-set-key (kbd "C-c y") 'hydra-yasnipet/body)
+    (yas-global-mode 1)
+    ))
 
 (defun david/init-ivy-yasnippet ()
   (use-package ivy-yasnippet))
@@ -330,8 +330,8 @@
 (defun david/init-js2-mode ()
   (use-package js2-mode
     :bind
-  (:map js2-mode-map ("C-x C-e" . js-send-line))
-  (:map js2-mode-map ("C-c b" . js-send-buffer))))
+    (:map js2-mode-map ("C-x C-e" . js-send-line))
+    ("C-c b" . js-send-buffer)))
 
 (defun david/init-helm ()
   (use-package helm
@@ -357,26 +357,26 @@
   (:map ivy-minibuffer-map ("M-s" . ivy-partial))))
 
 (defun david/init-which-key ()
-(use-package which-key
-  :config
-  (setq which-key-show-early-on-C-h t)
-  ;; make sure which-key doesn't show normally but refreshes quickly after it is
-  ;; triggered.
-  (setq which-key-idle-delay 1)
-  (setq which-key-idle-secondary-delay 0.05)
-  (which-key-enable-god-mode-support)
-  (which-key-mode)))
+  (use-package which-key
+    :config
+    (setq which-key-show-early-on-C-h t)
+    ;; make sure which-key doesn't show normally but refreshes quickly after it is
+    ;; triggered.
+    (setq which-key-idle-delay 1)
+    (setq which-key-idle-secondary-delay 0.05)
+    (which-key-enable-god-mode-support)
+    (which-key-mode)))
 
 (defun david/init-cperl-mode ()
-(use-package cperl-mode
-  :demand
-  (load "pde-load")
-  :config
-  (defun iperl ()
-    (interactive)
-    (let ((directory  default-directory))
+  (use-package cperl-mode
+    :demand
+    (load "pde-load")
+    :config
+    (defun iperl ()
+      (interactive)
+      (let ((directory  default-directory))
 
-      (kill-matching-buffers "*iperl.*" nil t)
+        (kill-matching-buffers "*iperl.*" nil t)
         (if (= 1 (length (window-list)))
             (split-window-right))
         (sit-for 0.5)
@@ -384,25 +384,25 @@
         (setq default-directory directory)
         (ansi-term "re.pl" "iperl")
         (previous-window-any-frame)))
-  ;; (advice-add 'iperl :override #'(setq term-ansi-buffer-name "iperl"))
-  (advice-remove 'iperl #'(setq term-ansi-buffer-name "iperl"))
-  ;; (define-key cperl-mode-map (kbd "C-c x") 'perl-exec)
-  (define-key cperl-mode-map (kbd "M-3")
-    (defhydra hydra-pde ()
-      "Hydra for pde"
-      ("f" pde-project-find-file "find file" :exit t :column "nav" )
-      ("i" lsp-imenu "imenu" :exit t :column "nav")
-      ("d" pde-perldoc-tree "perldoc-tree" :exit t :column "help")
-      ("h" cperl-perldoc-at-point "perdoc at point" :exit t :column "help")
-      ("t" cperl-etags "etags" :exit t :column "nav")
-      ("m" cperl-indent-for-comment "comment end of line" :exit t :column "comment")
-      ("I" iperl "perl with cat" :exit t :column "hack")
-      ("E" (lambda ()
-             (interactive)
-             "like compile in other ide"
-             (eshell-command (concat "perl " (buffer-file-name))))
-       "execute this perl file" :exit t :column "hack")
-      ))))
+    ;; (advice-add 'iperl :override #'(setq term-ansi-buffer-name "iperl"))
+    (advice-remove 'iperl #'(setq term-ansi-buffer-name "iperl"))
+    ;; (define-key cperl-mode-map (kbd "C-c x") 'perl-exec)
+    (define-key cperl-mode-map (kbd "M-3")
+      (defhydra hydra-pde ()
+        "Hydra for pde"
+        ("f" pde-project-find-file "find file" :exit t :column "nav" )
+        ("i" lsp-imenu "imenu" :exit t :column "nav")
+        ("d" pde-perldoc-tree "perldoc-tree" :exit t :column "help")
+        ("h" cperl-perldoc-at-point "perdoc at point" :exit t :column "help")
+        ("t" cperl-etags "etags" :exit t :column "nav")
+        ("m" cperl-indent-for-comment "comment end of line" :exit t :column "comment")
+        ("I" iperl "perl with cat" :exit t :column "hack")
+        ("E" (lambda ()
+               (interactive)
+               "like compile in other ide"
+               (eshell-command (concat "perl " (buffer-file-name))))
+         "execute this perl file" :exit t :column "hack")
+        ))))
 
 ;; (defun david/init-perl-completion ()
 ;;   (use-package perl-completion
@@ -439,7 +439,10 @@
   (use-package evil-args))
 
 (defun david/init-evil-matchit ()
-  (use-package evil-matchit))
+  (use-package evil-matchit
+    :config
+    (global-evil-matchit-mode 1)
+    (setq evilmi-shortcut "M")))
 
 (defun david/init-evil-textobj-syntax ()
   (use-package evil-textobj-syntax))
@@ -451,51 +454,138 @@
   (use-package eshell-autojump))
 
 (defun david/init-bookmark ()
-  (use-package bookmark))
+  (use-package bookmark
+    :config
+    (defadvice bookmark-jump (after bookmark-jump activate)
+    (let ((latest (bookmark-get-bookmark bookmark)))
+      (setq bookmark-alist (delq latest bookmark-alist))
+      (add-to-list 'bookmark-alist latest)))))
 
 (defun david/init-pdf-tools ()
-  (use-package pdf-tools))
+  (use-package pdf-tools
+    :config
+    (add-hook 'pdf-view-mode-hook
+              (blink-cursor-mode -1))))
 
 (defun david/init-tab-line ()
   (use-package tab-line))
 
 (defun david/init-anzu ()
-  (use-package anzu))
+  (use-package anzu
+    :config
+    (global-anzu-mode 1)
+    (set-face-attribute 'anzu-mode-line nil
+                        :foreground "yellow"
+                        :weight 'bold)
+    (define-key isearcg-mode-map
+      (kbd "C-S-a a")
+      'anzu-isearch-query-replace)))
 
 (defun david/init-w3m ()
-  (use-package w3m))
+  (use-package w3m
+    :config
+    (dolist (mod (list 'w3m-mode 'w3m-session-select-mode))
+      (evil-set-initial-state mod 'emacs))
+    (defun ffap-w3m-other-window (url &optional new-session)
+      "Browse url in w3m.
+  If current frame has only one window, create a new window and browse the webpage"
+      (interactive (progn
+                     (browse-url-interactive-arg "Emacs-w3m URL: ")))
+      (let ((w3m-pop-up-windows t))
+        (if (one-window-p) (split-window))
+        (other-window 1)
+        (w3m-browse-url url new-session)))))
 
 (defun david/init-elfeed ()
   (use-package elfeed))
 
 (defun david/init-cpp ()
-  (use-package cpp))
+  (use-package cpp
+    :hook
+    (cpp-mode-map . cpp-auto-include)))
 
 (defun david/init-projectile ()
-  (use-package projectile))
+  (use-package projectile
+    :config
+    (projectile-mode 1)
+    (define-key projectile-mode-map (kbd "C-c p")
+      'projectile-command-map)))
 
 (defun david/init-org ()
   (use-package org))
 
 (defun david/init-org-superstar ()
-  (use-package org-superstar))
+  (use-package org-superstar
+    :hook
+    (org-mode . (lambda ()
+                  (org-superstar-mode)))))
 
 (defun david/init-swiper ()
-  (use-package swiper))
+  (use-package swiper
+    :config
+    (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  ;; enable this if you want `swiper' to use it
+  ;; (setq search-default-mode #'char-fold-to-regexp)
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (define-key global-map (kbd "C-x C-f") 'ffap)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  (define-key ivy-minibuffer-map (kbd "M-c") 'ivy-toggle-case-fold)
+))
 
 (defun david/init-counsel-etags ()
-  (use-package counsel-etags))
+  (use-package counsel-etags
+    :config
+    (define-prefix-command 'counsel-etags-map)
+  (global-set-key (kbd "C-c e") 'counsel-etags-map)
+  (define-key 'counsel-etags-map "f" 'counsel-etags-list-tag-in-current-file)
+  (define-key 'counsel-etags-map "c" 'counsel-etags-find-tag-at-point)
+
+    ))
 
 
 
 (defun david/init-company-c-headers ()
-  (use-package company-c-headers))
+  (use-package company-c-headers
+    :after company
+    :mode (("\\.cpp\\'" . c++-mode)
+           ("\\.c\\'" . c-mode))
+    :config
+    (add-to-list 'company-backends 'company-c-headers)))
 
 (defun david/init-cc-mode ()
-  (use-package cc-mode))
+  (use-package cc-mode
+    :config
+    (semantic-mode 1)
+  (defun alexott/cedet-hook ()
+    (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
+    (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
+  (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+  (add-hook 'c-mode-hook 'alexott/cedet-hook)
+  (add-hook 'c++-mode-hook 'alexott/cedet-hook)))
 
 (defun david/init-ede ()
-  (use-package ede))
+  (use-package ede
+    :mode (("\\.cpp\\'" . c++-mode)
+           ("\\.c\\'" . c-mode))
+    :config
+    (global-ede-mode)
+    ))
 
 (defun david/init-volatile-highlights ()
   (use-package volatile-highlights))
@@ -630,7 +720,11 @@
   (use-package printing))
 
 (defun david/init-org-download ()
-  (use-package org-download))
+  (use-package org-download
+    :config
+    (add-hook 'dired-mode-hook 'org-download-enable)
+    (add-hook 'org-mode-hook 'org-download-enable)
+    ))
 
 (defun david/init-diminish ()
   (use-package diminish))
@@ -651,16 +745,32 @@
 ;;   (use-package org-pandoc-import))
 
 (defun david/init-openwith ()
-  (use-package openwith))
+  (use-package openwith
+    :config
+    (openwith-mode t)))
 
 (defun david/init-flycheck ()
   (use-package flycheck))
 
 (defun david/init-rebox2 ()
-  (use-package rebox2))
+  (use-package rebox2
+    :config
+    (add-hook 'emacs-lisp-mode-hook
+              (lambda ()
+                (set (make-local-variable 'rebox-style-loop) '(25 17 21))
+                (set (make-local-variable 'rebox-min-fill-column) 40)
+                (rebox-mode 1)))))
 
 (defun david/init-markdown-mode ()
-  (use-package markdown-mode))
+  (use-package markdown-mode
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown")
+    :bind
+    (:map markdown-mode-map ( [tab] . markdown-cycle))
+
+    ))
 
 (defun david/init-all-the-icons-dired ()
   (use-package all-the-icons-dired))
@@ -669,25 +779,56 @@
   (use-package ssh-agency))
 
 (defun david/init-dired-rsync ()
-  (use-package dired-rsync))
+  (use-package dired-rsync
+    :config
+    (define-key dired-mode-map (kbd "C-c C-r") 'dired-rsync)))
 
 (defun david/init-dired-git-info ()
   (use-package dired-git-info))
 
 (defun david/init-dired-rainbow ()
-  (use-package dired-rainbow))
+  (use-package dired-rainbow
+    :config
+    (progn
+    (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+    (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+    (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+    (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+    (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+    (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+    (dired-rainbow-define media "#de751f" ("mp3" "mp4" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+    (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+    (dired-rainbow-define log "#c17d11" ("log"))
+    (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+    (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+    (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+    (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+    (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+    (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+    (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+    (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+    (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+    (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")
+    )))
 
 (defun david/init-gomacro-mode ()
-  (use-package gomacro-mode))
+  (use-package gomacro-mode
+    :hook
+    (go-mode . gomacro-mode)))
 
 (defun david/init-snort-mode ()
   (use-package snort-mode))
 
 (defun david/init-gist ()
-  (use-package gist))
+  (use-package gist
+    :after gh))
 
 (defun david/init-paredit-everywhere ()
-  (use-package paredit-everywhere))
+  (use-package paredit-everywhere
+    :after paredit
+    :hook
+    (prog-mode . paredit-everywhere-mode)))
 
 (defun david/init-dockerfile-mode ()
   (use-package dockerfile-mode))
@@ -696,16 +837,34 @@
   (use-package org-dashboard))
 
 (defun david/init-forge ()
-  (use-package forge))
+  (use-package forge
+    :after magit
+    :config
+    (setq auth-sources '("~/.authinfo"))))
 
 (defun david/init-calfw ()
-  (use-package calfw))
+  (use-package calfw
+    :config
+    (setq cfw:org-agenda-schedule-args '(:deadline))
+    ;; (setq cfw:org-agenda-schedule-args nil)
+    (setq cfw:org-overwrite-default-keybinding t)
+    ))
 
 (defun david/init-calfw-org ()
-  (use-package calfw-org))
+  (use-package calfw-org
+    :after calfw))
 
-(defun david/init-plantuml-mode ()
-  (use-package plantuml-mode))
+(ignore-errors
+  (defun david/init-plantuml-mode ()
+    (use-package plantuml-mode
+      :config
+      (setq plantuml-jar-path "/usr/share/java/plantmul/plantuml.jar")
+      (setq plantuml-default-exec-mode 'jar)
+
+      ;; Sample executable configuration
+      (setq plantuml-executable-path "/usr/bin/plantuml")
+      (setq plantuml-default-exec-mode 'executable)
+      )))
 
 (defun david/init-ox-reveal ()
   (use-package ox-reveal))
@@ -716,5 +875,3 @@
     (autoload 'poporg-dwim "poporg" nil t)
     (global-set-key (kbd "C-c \"") 'poporg-dwim)))
 
-(defun david/init-org ()
-  (use-package org))
