@@ -1,4 +1,4 @@
-;;; layers.el --- attemp to make layer not conflict with each other  -*- lexical-binding: t; -*-
+;;; config.el --- the first file to init when spacemacs load this layer  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021
 
@@ -20,18 +20,20 @@
 
 ;;; Commentary:
 
-;;
 
 ;;; Code:
-(dolist (layers '(emacs-lisp
-                  spacemacs-bootstrap
-                  spacemacs-editing-visual
-                  helm
-                  spacemacs-evil
-                  spacemacs-defaults
-                  spacemacs-project
-                  spacemacs-org
-                  spacemacs-completion
-                  )
-                )
-  (configuration-layer/declare-layer layers))
+(defvar private-path (concat (getenv "HOME") "/.emacs.d/private"))
+(defvar david-path (concat private-path "/david"))
+(progn
+  (server-start)
+  (unless (server-running-p)
+    (server-start)))
+
+
+(setq byte-compile-warnings '(cl-functions))
+(menu-bar-mode -1 )
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+
+

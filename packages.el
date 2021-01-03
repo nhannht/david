@@ -28,22 +28,22 @@
 (defconst david-packages
   '(
     (install-elisp :location (recipe
-                             :fetcher github
-                             :repo "nhannht/install-elisp"))
-    ;debug
+                              :fetcher github
+                              :repo "nhannht/install-elisp"))
+                                        ;debug
     focus
     cl-lib
-   ; evil
-    ;hydra
+                                        ; evil
+                                        ;hydra
     evil-leader
-   ; evil-collection
+                                        ; evil-collection
     dracula-theme
     paredit
-   ;airline-themes
+                                        ;airline-themes
     smart-window
 
     autopair
-    ;rainbow-delimiters
+                                        ;rainbow-delimiters
     yasnippet-snippets
     yasnippet
     ivy-yasnippet
@@ -51,83 +51,83 @@
     dashboard
     all-the-icons
     js2-mode
-    ;helm
+                                        ;helm
     ivy
-    ;which-key
+                                        ;which-key
     cperl-mode
     ;; (perl-completion
     ;;  :location (recipe
     ;;             :fetcher github
     ;;             :repo "nhannht/perl-completion"))
-    ;company-plsense
+                                        ;company-plsense
     lsp-mode 
     lsp-mode                      
     json-mode
     lsp-ui
     helm-lsp
     evil-search-highlight-persist
-    ;evil-args
-    ;evil-matchit
+                                        ;evil-args
+                                        ;evil-matchit
     evil-textobj-syntax
-    ;evil-textobj-line
+                                        ;evil-textobj-line
     eshell-autojump
-    ;bookmark
+                                        ;bookmark
     pdf-tools
     tab-line
     anzu
     w3m
     elfeed
     cpp
-  ;  projectile
-   ; org
-   ; org-superstar
+                                        ;  projectile
+                                        ; org
+                                        ; org-superstar
     swiper
     counsel-etags
-    ;company
+                                        ;company
     company-c-headers
     cc-mode
     ede
-;    volatile-highlights
-    ;clean-aindent-mode
+                                        ;    volatile-highlights
+                                        ;clean-aindent-mode
     dtrt-indent
-    ;ws-butler
+                                        ;ws-butler
     comment-dwim-2
     anzu
     iedit
     zygospore
     ggtags
-  ;  helm-gtags
+                                        ;  helm-gtags
     anki-editor
     evil-textobj-entire
-   ; evil-indent-plus
+                                        ; evil-indent-plus
     evil-textobj-anyblock
     gdscript-mode
     emojify
     drag-stuff
     auto-yasnippet
-   ; evil-surround
+                                        ; evil-surround
     virtualenvwrapper
     yaml-mode
     apache-mode
     gitignore-mode
     org-journal
-    ;highlight-indentation
-    ;org-graph-view
+                                        ;highlight-indentation
+                                        ;org-graph-view
 
     (graph :location (recipe
                       :fetcher github
                       :repo "nhannht/graph.el"))
-    ;undo-tree
+                                        ;undo-tree
     org-brain
     xmlgen
     a
-   ; avy
+                                        ; avy
     evil-text-object-python
     evil-python-movement
     pydoc
     docker
     docker-tramp
-    ;ace-window
+                                        ;ace-window
     dap-mode
     ini-mode
     ob-ipython
@@ -135,11 +135,11 @@
     yatemplate
     printing
     org-download
-    ;diminish
+                                        ;diminish
     disaster
     htmlize
     annotate
-  ;  ido
+                                        ;  ido
     ;; (org-pandoc-import
     ;;  :location
     ;;  (recipe :fetcher github
@@ -169,6 +169,7 @@
     ox-reveal
     poporg
     org
+    (winum :excluded t)
     ))
 (defmacro bug|init (name &rest body)
   (declare (indent defun))
@@ -221,7 +222,7 @@
     ))
 
 (defun spacemacs-evil/init-evil ()
-  (ignore-errors (use-package evil
+  (use-package evil
                    :init
                    (setq evil-want-keybinding nil)
                    :config
@@ -237,10 +238,12 @@
                    (evil-set-initial-state 'diff-mode 'emacs)
                    (add-to-list 'evil-emacs-state-modes 'calendar-mode)
                    (dolist (lst (list 'ibuffer-mode 'dired-mode 'perldoc-mode 'imenu-tree-mode))
-                     (evil-set-initial-state lst 'emacs)) )))
+                     (evil-set-initial-state lst 'emacs)) ))
 
 (defun david/init-hydra ()
   (use-package hydra))
+;; (defun david/post-init-hydra
+;;     (load-file (concat david-path "/bindings.el")))
 
 (defun david/init-evil-leader ()
   (use-package evil-leader
@@ -286,10 +289,11 @@
 
 (defun david/init-yasnippet-snippets ()
   (use-package yasnippet-snippets
+    :after yasnippet
     ))
 (defun david/init-yasnippet ()
 (use-package yasnippet
-  :after (ivy-yasnippet helm-c-yasnippet)
+  :after (ivy-yasn helm-c-yasnippet)
   :config
   (defhydra hydra-yasnipet ()
     ("i" ivy-yasnippet "ivy-yasnippet" :exit t :column "yas")
@@ -707,7 +711,10 @@
   (use-package ox-reveal))
 
 (defun david/init-poporg ()
-  (use-package poporg))
+  (use-package poporg
+    :config
+    (autoload 'poporg-dwim "poporg" nil t)
+    (global-set-key (kbd "C-c \"") 'poporg-dwim)))
 
 (defun david/init-org ()
   (use-package org))
