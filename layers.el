@@ -28,8 +28,8 @@
                   spacemacs-editing-visual
                   helm
                   spacemacs-evil
-                  spacemacs-defaults
-                  spacemacs-project
+                 ; spacemacs-defaults
+                 ; spacemacs-project
                   spacemacs-org
                   spacemacs-completion
                   )

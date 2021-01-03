@@ -95,7 +95,7 @@
     anzu
     iedit
     zygospore
-    ggtags
+   ggtags
                                         ;  helm-gtags
     anki-editor
     evil-textobj-entire
@@ -329,13 +329,14 @@
 
 (defun david/init-js2-mode ()
   (use-package js2-mode
+    :mode "\\.js\\'"
     :bind
     (:map js2-mode-map ("C-x C-e" . js-send-line))
     ("C-c b" . js-send-buffer)))
 
 (defun david/init-helm ()
   (use-package helm
-    :requires evil
+    :after evil
     :config
     ;; (helm-mode 1)
     (evil-leader/set-key
