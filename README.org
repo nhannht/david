@@ -1,0 +1,8 @@
+#+begin_src plantuml :file ./_assets/img/loading.png
+;loading in spacemacs layer
+layers.el --> packages.el
+
+#+end_src
+
+#+RESULTS:
+[[file:./_assets/img/loading.png]]

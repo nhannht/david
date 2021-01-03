@@ -634,7 +634,9 @@
   (use-package gdscript-mode))
 
 (defun david/init-emojify ()
-  (use-package emojify))
+  (use-package emojify
+    :hook
+    (after-init . global-emojify-mode)))
 
 (defun david/init-drag-stuff ()
   (use-package drag-stuff))
@@ -658,7 +660,14 @@
   (use-package gitignore-mode))
 
 (defun david/init-org-journal ()
-  (use-package org-journal))
+  (use-package org-journal
+    :config
+    (setq org-journal-dir (concat (getenv "HOME") "/org/journal/"))
+    (setq org-journal-file-format "%Y_%m_%d.org")
+    (setq org-journal-date-prefix "* Daily Notes 🐱")
+    (setq org-journal-carryover-items "")
+    (setq org-journal-time-prefix "** 🐱 ")
+    ))
 
 (defun david/init-highlight-indentation ()
   (use-package highlight-indentation))
@@ -670,7 +679,10 @@
   (use-package graph))
 
 (defun david/init-undo-tree ()
-  (use-package undo-tree))
+  (use-package undo-tree
+    :hook
+    ((text-mode . (lambda () (interactive) (undo-tree-mode 1)))
+     (prog-mode . (lambda () (interactive) (undo-tree-mode 1)))) ))
 
 (defun david/init-org-brain ()
   (use-package org-brain))
@@ -725,6 +737,10 @@
     :config
     (add-hook 'dired-mode-hook 'org-download-enable)
     (add-hook 'org-mode-hook 'org-download-enable)
+    (setq org-download-abbreviate-filename-function 'file-relative-name)
+     (setq org-download-heading-lvl nil)
+ (setq org-download-image-dir "_assets")
+ (setq org-download-screenshot-method "import %s")
     ))
 
 (defun david/init-diminish ()
@@ -859,7 +875,7 @@
   (defun david/init-plantuml-mode ()
     (use-package plantuml-mode
       :config
-      (setq plantuml-jar-path "/usr/share/java/plantmul/plantuml.jar")
+      (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
       (setq plantuml-default-exec-mode 'jar)
 
       ;; Sample executable configuration
