@@ -1,5 +1,5 @@
-#+begin_src plantuml :file /ssh:gc-sing:/home/larva/.emacs.d/private/david/_assets/img/loading.svg :dir /ssh:gc-sing:/home/larva/.emacs.d/private/david/
-    'loading in spacemacs layer 
+#+begin_src plantuml :file /ssh:gc-sing:/home/larva/.emacs.d/private/david/_assets/img/loading.svg :dir /ssh:gc-sing:/home/larva/.emacs.d/private/david/ :exports none 
+    'loading in spacemacs layer  
 skinparam maxMessageSize 40
     layers.el --> packages.el :layer.el always\n loading first
     packages.el --> funcs.el : funcs.el always secure\n weth when package enabled
