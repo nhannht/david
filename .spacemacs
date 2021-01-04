@@ -1,1 +1,1 @@
-.spacemacs
+/home/larva/.spacemacs
