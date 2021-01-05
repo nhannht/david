@@ -95,7 +95,7 @@
     anzu
     iedit
     zygospore
-   ggtags
+   ; ggtags
                                         ;  helm-gtags
     anki-editor
     evil-textobj-entire
@@ -110,7 +110,7 @@
     yaml-mode
     apache-mode
     gitignore-mode
-    org-journal
+   ; org-journal
                                         ;highlight-indentation
                                         ;org-graph-view
 
@@ -118,7 +118,7 @@
                       :fetcher github
                       :repo "nhannht/graph.el"))
                                         ;undo-tree
-    org-brain
+   ; org-brain
     xmlgen
     a
                                         ; avy
@@ -134,10 +134,10 @@
     ob-go
     yatemplate
     printing
-    org-download
+   ; org-download
                                         ;diminish
     disaster
-    htmlize
+   ; htmlize
     annotate
                                         ;  ido
     ;; (org-pandoc-import
@@ -145,7 +145,7 @@
     ;;  (recipe :fetcher github
     ;;          :repo "nhannht/org-pandoc-import"))
     openwith
-    flycheck
+    ;flycheck
     rebox2
     markdown-mode
     all-the-icons-dired
@@ -168,7 +168,7 @@
     plantuml-mode
     ox-reveal
     poporg
-    org
+   ; org
     (winum :excluded t)
     ))
 (defmacro bug|init (name &rest body)
@@ -512,7 +512,7 @@
     (define-key projectile-mode-map (kbd "C-c p")
       'projectile-command-map)))
 
-(defun david/init-org ()
+(defun org/init-org ()
   (use-package org))
 
 (defun david/init-org-superstar ()
@@ -612,7 +612,7 @@
 (defun david/init-zygospore ()
   (use-package zygospore))
 
-(defun david/init-ggtags ()
+(defun gtags/init-ggtags ()
   (use-package ggtags))
 
 ;; (defun david/init-helm-gtags ()
@@ -659,7 +659,7 @@
 (defun david/init-gitignore-mode ()
   (use-package gitignore-mode))
 
-(defun david/init-org-journal ()
+(defun org/init-org-journal ()
   (use-package org-journal
     :config
     (setq org-journal-dir (concat (getenv "HOME") "/org/journal/"))
@@ -684,7 +684,7 @@
     ((text-mode . (lambda () (interactive) (undo-tree-mode 1)))
      (prog-mode . (lambda () (interactive) (undo-tree-mode 1)))) ))
 
-(defun david/init-org-brain ()
+(defun org/init-org-brain ()
   (use-package org-brain))
 
 (defun david/init-xmlgen ()
@@ -732,7 +732,7 @@
 (defun david/init-printing ()
   (use-package printing))
 
-(defun david/init-org-download ()
+(defun org/init-org-download ()
   (use-package org-download
     :config
     (add-hook 'dired-mode-hook 'org-download-enable)
@@ -749,7 +749,7 @@
 (defun david/init-disaster ()
   (use-package disaster))
 
-(defun david/init-htmlize ()
+(defun org/init-htmlize ()
   (use-package htmlize))
 
 (defun david/init-annotate ()
@@ -766,7 +766,7 @@
     :config
     (openwith-mode t)))
 
-(defun david/init-flycheck ()
+(defun syntax-checking/init-flycheck ()
   (use-package flycheck))
 
 (defun david/init-rebox2 ()
