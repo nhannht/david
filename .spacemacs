@@ -32,8 +32,12 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
+<<<<<<< HEAD
    '(html
      gtags
+=======
+   '(
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -42,18 +46,30 @@ This function should only modify configuration layer settings."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
+<<<<<<< HEAD
      common-lisp
+=======
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
      ;; git
      helm
      ;; lsp
      ;; markdown
      multiple-cursors
+<<<<<<< HEAD
      (org :variables org-enable-org-journal-support t)
       (shell :variables
              shell-default-height 30
              shell-default-position 'bottom)
      ;; spell-checking
       syntax-checking
+=======
+     ;; org
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     ;; spell-checking
+     ;; syntax-checking
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
      ;; version-control
      treemacs
      david)
@@ -73,9 +89,13 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
+<<<<<<< HEAD
    dotspacemacs-excluded-packages '(
                                     autopair
                                     )
+=======
+   dotspacemacs-excluded-packages '()
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -411,7 +431,11 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
+<<<<<<< HEAD
    dotspacemacs-enable-server t
+=======
+   dotspacemacs-enable-server nil
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -521,6 +545,7 @@ before packages are loaded."
   ;;   (server-start)
   ;;   (unless (server-running-p)
   ;;     (server-start)))
+<<<<<<< HEAD
 ;; init for scratch buffer
   (setq initial-major-mode 'org-mode)
   ;; spacemacs use smart parrent, not autopair
@@ -533,6 +558,17 @@ before packages are loaded."
   (dolist (conf (list "/hydra.el"
                       ))
     (load-file (concat david-path conf)))
+=======
+
+
+  (menu-bar-mode -1 )
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+
+  (dolist (conf (list "/hydra.el"
+                      ))
+          (load-file (concat david-path conf)))
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
   (add-hook 'org-mode-hook
             (lambda () (electric-indent-local-mode -1)))
 
@@ -544,7 +580,10 @@ before packages are loaded."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
+<<<<<<< HEAD
      (lisp . t)
+=======
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
      (C . t )
      (go . t)
      (plantuml . t)
@@ -556,6 +595,7 @@ before packages are loaded."
      (ditaa . t)
      ;; Include other languages here...
      ))
+<<<<<<< HEAD
   ()
 
 
@@ -698,6 +738,146 @@ before packages are loaded."
                  'hydra-yasnipet/yas-new-snippet-and-exit
                  'hydra-yasnipet/yas-visit-snippet-file-and-exit))
     (advice-add func :after #'evil-insert-state))
+=======
+()
+
+
+(setq org-hide-emphasis-markers t)
+;; Syntax highlight in #+BEGIN_SRC blocks
+(setq org-src-fontify-natively t)
+;; Don't prompt before running code in org
+(setq org-confirm-babel-evaluate nil)
+;; Fix an incompatibility between the ob-async and ob-ipython packages
+;; (setq ob-async-no-async-languages-alist '("ipython"))
+
+
+(setq debug-on-error t)
+(setq package-check-signature nil)
+
+(setq byte-compile-warnings '(cl-functions))
+;(setq evil-default-state 'insert)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq inferior-lisp-program "sbcl")
+(setq org-startup-with-inline-images t)
+(setq org-hide-emphasis-markers t)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(setq dtrt-indent-verbosity 0)
+(setq iedit-toggle-key-default nil)
+(setq aw-background nil)
+(setq dap-auto-configure-features '(sessions locals controls tooltip))
+(setq org-src-fontify-natively t)
+(setq org-confirm-babel-evaluate nil)
+(if (not (file-exists-p "~/org"))
+    (async-shell-command-no-window "mkdir -p ~/org && cd ~/org && mkdir -p journal capture agenda"))
+
+  (defun david/post-init-org ()
+    (progn
+                                        ;(org-agenda . (lambda () (turn-on-visual-line-mode) ))
+      (setq org-refile-targets
+            (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9))))
+      (ignore-errors
+        (setq org-agenda-files (list "~/org/" "~/org/journal/" "~/org/capture/")))
+      (setq org-agenda-file-regexp "\\`\\\([^.].*\\.org\\\|[0-9]\\\{8\\\}\\\(\\.gpg\\\)?\\\)\\'")
+      (ignore-errors (add-to-list 'org-agenda-files org-journal-dir))
+      ;; custom command
+      (setq org-agenda-custom-commands
+            '(
+              ("d" "Deadline-over" agenda "display deadlines and exclude scheduled" (
+                                                                                     (org-agenda-span 'month)
+                                                                                     (org-agenda-time-grid nil)
+                                                                                     (org-agenda-show-all-dates nil)
+                                                                                     (org-agenda-entry-types '(:deadline)) ;; this entry excludes :scheduled
+                                                                                     (org-deadline-warning-days 0) ))
+              ))
+      (add-to-list
+       'org-agenda-custom-commands
+       '("D" "Done shit"
+         agenda ""
+         ((org-agenda-start-day "-14d")
+          (org-agenda-span 14)
+          (org-agenda-start-on-weekday 1)
+          (org-agenda-start-with-log-mode '(closed))
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))))
+(setq global-visual-line-mode t)
+
+(setq bookmark-default-file "~/org/bookmarks")
+(setq bookmark-version-control 'nospecial)
+(setq dired-listing-switches "-alh")
+(setq display-line-numbers t)
+ (setq gdb-many-windows t)
+(setq global-visual-line-mode t)
+(setq helm-bookmark-show-location t)
+;; (setq helm-completion-style 'emacs)
+;; (setq helm-minibuffer-history-key "M-p")
+;;                                         ;(setq help-at-pt-display-when-idle t nil (help-at-pt))
+;; (setq initial-major-mode 'org-mode)
+
+(setq ivy-case-fold-search-default t)
+(setq lsp-go-gopls-server-path (concat (getenv "HOME") "/go/bin/gopls"))
+(setq lsp-pyls-server-command '("pyls"))
+(setq openwith-associations
+      '(("\\.pdf\\'" "okular"
+             (file))
+            ("\\.mp3\\'" "vlc"
+             (file))
+            ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "mplayer"
+             ("-idx" file))
+            ("\\.odt\\'" "libreoffice"
+             (file))
+            ("\\.\\(xlsx\\|xls\\)\\'" "libreoffice"
+             (file))))
+ (setq openwith-confirm-invocation t)
+ (setq org-agenda-files nil)
+ (setq org-ditaa-jar-path "/use/share/java/ditaa/")
+ (setq org-download-abbreviate-filename-function 'file-relative-name)
+ (setq org-download-heading-lvl nil)
+ (setq org-download-image-dir "_assets")
+ (setq org-download-screenshot-method "import %s")
+(setq org-file-apps
+      '((auto-mode . emacs)
+            (directory . emacs)
+            ("\\.mm\\'" . "freeplane &")
+            ("\\.x?html?\\'" . default)
+            ("\\.pdf\\'" . "okular &")
+            ("\\.odt\\'" . "mimeopen")
+            ("\\.jpeg\\'" . "fim")))
+ (setq org-journal-date-format "%Y-%m-%d")
+ (setq org-journal-time-prefix "** 🐱 ")
+ (setq org-plantuml-executable-path "/usr/bin/plantuml")
+ (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
+(setq org-structure-template-alist
+      '(("n" . "notes")
+            ("a" . "export ascii")
+            ("c" . "center")
+            ("C" . "comment")
+            ("e" . "example")
+            ("E" . "export")
+            ("h" . "html")
+            ("l" . "export latex")
+            ("q" . "quote")
+            ("s" . "src shell")
+            ("v" . "verse")
+            ("p" . "properties")
+            ("S" . "src shell :results output :exports both ")
+            ("u" . "src plantuml :file out.png :dir _assets/img/")))
+(setq plantuml-default-exec-mode 'jar)
+(setq projectile-known-projects-file "~/org/projectile-bookmarks.eld")
+(setq rcirc-prompt ":cat: >")
+
+(setq recentf-max-menu-items 100)
+(setq recentf-max-saved-items 100)
+(setq safe-local-variable-values '((org-download-image-dir . "../assets/img/")))
+(setq show-paren-mode t)
+(setq size-indication-mode t)
+(setq tab-always-indent nil)
+(setq tab-stop-list '(4))
+(setq tramp-copy-size-limit nil)
+(setq yas-snippet-dirs '("~/snippets"))
+
+
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -717,6 +897,7 @@ before packages are loaded."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+<<<<<<< HEAD
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -738,3 +919,5 @@ This function is called at the very end of Spacemacs initialization."
    ;; If there is more than one, they won't work right.
    )
   )
+=======
+>>>>>>> b8c3f74e49320ec8eb872bf96ee2577c304af499
