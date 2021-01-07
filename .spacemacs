@@ -41,6 +41,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
+     haskell
      rust
      emacs-lisp
      common-lisp
@@ -557,9 +558,10 @@ before packages are loaded."
      (shell . t)
      (perl . t )
      (ditaa . t)
+     (haskell . t)
      ;; Include other languages here...
      ))
-  ()
+  
 
 
   (setq org-hide-emphasis-markers t)
