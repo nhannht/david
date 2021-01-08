@@ -891,5 +891,7 @@
     :config
     (autoload 'poporg-dwim "poporg" nil t)
     (global-set-key (kbd "C-c \"") 'poporg-dwim)))
+
 (defun david/post-init-evil ()
   (load-file " ~/.emacs.d/private/local/evil-evilified-state/evil-evilified-state.el"))
+

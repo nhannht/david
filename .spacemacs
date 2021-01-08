@@ -33,22 +33,26 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(html
-     gtags
+     ;gtags
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
+     javascript
+     java
+      auto-completion
      ;; better-defaults
-     haskell
-     rust
+    ; haskell
+    ; rust
      emacs-lisp
      common-lisp
-     go
+    ; clojure 
+    ; go
      ;; git
      helm
-     ;; lsp
+     lsp
+     dap
      ;; markdown
      multiple-cursors
      (org :variables org-enable-org-journal-support t)
@@ -519,12 +523,14 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
+  ;; (setq spacemacs-default-company-backends '(( company-dabbrev-code company-gtags company-etags company-keywords) company-files company-dabbrev))
+  (setq company-backends '(company-capf ( company-dabbrev-code company-gtags company-etags company-keywords) company-files company-dabbrev))
   ;; (progn
   ;;   (server-start)
   ;;   (unless (server-running-p)
   ;;     (server-start)))
 ;; init for scratch buffer
+  (define-key lsp-mode-map (kbd "C-c C-l") lsp-command-map)
   (setq initial-major-mode 'org-mode)
   ;; spacemacs use smart parrent, not autopair
   (smartparens-global-mode 1) 
@@ -701,6 +707,19 @@ before packages are loaded."
 
   (spaceline-toggle-org-pomodoro-on)
   (setq save-interprogram-paste-before-kill nil)
+
+  ;; (use-package dante
+  ;;   :ensure t
+  ;;   :after haskell-mode
+  ;;   :commands 'dante-mode
+  ;;   :init
+  ;;   (add-hook 'haskell-mode-hook 'flycheck-mode)
+  ;;   ;; OR for flymake support:
+  ;;   (add-hook 'haskell-mode-hook 'flymake-mode)
+  ;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+
+  ;;   (add-hook 'haskell-mode-hook 'dante-mode)
+  ;;   )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -732,11 +751,14 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(haskell-compile-cabal-build-alt-command "cabal clean -s && cabal build --ghc-option=-ferror-spans ")
+ '(haskell-compile-cabal-build-command "cabal build --ghc-option=-ferror-spans ")
+ '(haskell-compile-command "ghc -Wall -ferror-spans -fforce-recomp  -c %s ")
  '(org-agenda-files
    '("~/repo/nhannht/public/hypata-8/readme.org" "/home/larva/org/journal/2020_10_11.org" "/home/larva/org/journal/2020_10_12.org" "/home/larva/org/journal/2020_10_13.org" "/home/larva/org/journal/2020_10_14.org" "/home/larva/org/journal/2020_10_15.org" "/home/larva/org/journal/2020_10_16.org" "/home/larva/org/journal/2020_10_17.org" "/home/larva/org/journal/2020_10_18.org" "/home/larva/org/journal/2020_10_19.org" "/home/larva/org/journal/2020_10_20.org" "/home/larva/org/journal/2020_10_21.org" "/home/larva/org/journal/2020_10_22.org" "/home/larva/org/journal/2020_10_23.org" "/home/larva/org/journal/2020_10_24.org" "/home/larva/org/journal/2020_10_25.org" "/home/larva/org/journal/2020_10_26.org" "/home/larva/org/journal/2020_10_27.org" "/home/larva/org/journal/2020_10_28.org" "/home/larva/org/journal/2020_10_29.org" "/home/larva/org/journal/2020_10_30.org" "/home/larva/org/journal/2020_11_02.org" "/home/larva/org/journal/2020_11_03.org" "/home/larva/org/journal/2020_11_04.org" "/home/larva/org/journal/2020_11_05.org" "/home/larva/org/journal/2020_11_06.org" "/home/larva/org/journal/2020_11_07.org" "/home/larva/org/journal/2020_11_08.org" "/home/larva/org/journal/2020_11_09.org" "/home/larva/org/journal/2020_11_10.org" "/home/larva/org/journal/2020_11_11.org" "/home/larva/org/journal/2020_11_12.org" "/home/larva/org/journal/2020_11_13.org" "/home/larva/org/journal/2020_11_14.org" "/home/larva/org/journal/2020_11_16.org" "/home/larva/org/journal/2020_11_17.org" "/home/larva/org/journal/2020_11_18.org" "/home/larva/org/journal/2020_11_19.org" "/home/larva/org/journal/2020_11_20.org" "/home/larva/org/journal/2020_11_21.org" "/home/larva/org/journal/2020_11_22.org" "/home/larva/org/journal/2020_11_23.org" "/home/larva/org/journal/2020_11_25.org" "/home/larva/org/journal/2020_11_26.org" "/home/larva/org/journal/2020_11_30.org" "/home/larva/org/journal/2020_12_01.org" "/home/larva/org/journal/2020_12_02.org" "/home/larva/org/journal/2020_12_04.org" "/home/larva/org/journal/2020_12_05.org" "/home/larva/org/journal/2020_12_06.org" "/home/larva/org/journal/2020_12_08.org" "/home/larva/org/journal/2020_12_10.org" "/home/larva/org/journal/2020_12_11.org" "/home/larva/org/journal/2020_12_12.org" "/home/larva/org/journal/2020_12_14.org" "/home/larva/org/journal/2020_12_15.org" "/home/larva/org/journal/2020_12_16.org" "/home/larva/org/journal/2020_12_17.org" "/home/larva/org/journal/2020_12_18.org" "/home/larva/org/journal/2020_12_24.org" "/home/larva/org/journal/2020_12_25.org" "/home/larva/org/journal/2020_12_26.org" "/home/larva/org/journal/2020_12_29.org" "/home/larva/org/journal/2020_12_30.org" "/home/larva/org/journal/2020_12_31.org" "/home/larva/org/journal/2021_01_01.org" "/home/larva/org/journal/2021_01_02.org" "/home/larva/org/journal/2021_01_03.org" "/home/larva/org/journal/2021_01_04.org" "/home/larva/org/journal/2021_01_05.org" "/home/larva/org/journal/plant-uml-exam.org" "/home/larva/org/64-bit-plain-text.org" "/home/larva/org/ccna.org" "/home/larva/org/contest.org" "/home/larva/org/crypto.org" "/home/larva/org/des-16-round.org" "/home/larva/org/des-64-bit-cipher-text.org" "/home/larva/org/des-algo.org" "/home/larva/org/des-final-permu.org" "/home/larva/org/des-ip.org" "/home/larva/org/des-key.org" "/home/larva/org/des-left-plain.org" "/home/larva/org/des-right-plain.org" "/home/larva/org/kaka.org" "/home/larva/org/princible.org" "/home/larva/org/srwe.org" "/home/larva/org/journal/2020_10_11.org" "/home/larva/org/journal/2020_10_12.org" "/home/larva/org/journal/2020_10_13.org" "/home/larva/org/journal/2020_10_14.org" "/home/larva/org/journal/2020_10_15.org" "/home/larva/org/journal/2020_10_16.org" "/home/larva/org/journal/2020_10_17.org" "/home/larva/org/journal/2020_10_18.org" "/home/larva/org/journal/2020_10_19.org" "/home/larva/org/journal/2020_10_20.org" "/home/larva/org/journal/2020_10_21.org" "/home/larva/org/journal/2020_10_22.org" "/home/larva/org/journal/2020_10_23.org" "/home/larva/org/journal/2020_10_24.org" "/home/larva/org/journal/2020_10_25.org" "/home/larva/org/journal/2020_10_26.org" "/home/larva/org/journal/2020_10_27.org" "/home/larva/org/journal/2020_10_28.org" "/home/larva/org/journal/2020_10_29.org" "/home/larva/org/journal/2020_10_30.org" "/home/larva/org/journal/2020_11_02.org" "/home/larva/org/journal/2020_11_03.org" "/home/larva/org/journal/2020_11_04.org" "/home/larva/org/journal/2020_11_05.org" "/home/larva/org/journal/2020_11_06.org" "/home/larva/org/journal/2020_11_07.org" "/home/larva/org/journal/2020_11_08.org" "/home/larva/org/journal/2020_11_09.org" "/home/larva/org/journal/2020_11_10.org" "/home/larva/org/journal/2020_11_11.org" "/home/larva/org/journal/2020_11_12.org" "/home/larva/org/journal/2020_11_13.org" "/home/larva/org/journal/2020_11_14.org" "/home/larva/org/journal/2020_11_16.org" "/home/larva/org/journal/2020_11_17.org" "/home/larva/org/journal/2020_11_18.org" "/home/larva/org/journal/2020_11_19.org" "/home/larva/org/journal/2020_11_20.org" "/home/larva/org/journal/2020_11_21.org" "/home/larva/org/journal/2020_11_22.org" "/home/larva/org/journal/2020_11_23.org" "/home/larva/org/journal/2020_11_25.org" "/home/larva/org/journal/2020_11_26.org" "/home/larva/org/journal/2020_11_30.org" "/home/larva/org/journal/2020_12_01.org" "/home/larva/org/journal/2020_12_02.org" "/home/larva/org/journal/2020_12_04.org" "/home/larva/org/journal/2020_12_05.org" "/home/larva/org/journal/2020_12_06.org" "/home/larva/org/journal/2020_12_08.org" "/home/larva/org/journal/2020_12_10.org" "/home/larva/org/journal/2020_12_11.org" "/home/larva/org/journal/2020_12_12.org" "/home/larva/org/journal/2020_12_14.org" "/home/larva/org/journal/2020_12_15.org" "/home/larva/org/journal/2020_12_16.org" "/home/larva/org/journal/2020_12_17.org" "/home/larva/org/journal/2020_12_18.org" "/home/larva/org/journal/2020_12_24.org" "/home/larva/org/journal/2020_12_25.org" "/home/larva/org/journal/2020_12_26.org" "/home/larva/org/journal/2020_12_29.org" "/home/larva/org/journal/2020_12_30.org" "/home/larva/org/journal/2020_12_31.org" "/home/larva/org/journal/2021_01_01.org" "/home/larva/org/journal/2021_01_02.org" "/home/larva/org/journal/2021_01_03.org" "/home/larva/org/journal/2021_01_04.org" "/home/larva/org/journal/2021_01_05.org" "/home/larva/org/journal/plant-uml-exam.org" "/home/larva/org/capture/notes_2020-10-11.org" "/home/larva/org/capture/notes_2020-10-12.org" "/home/larva/org/capture/notes_2020-10-18.org" "/home/larva/org/capture/notes_2020-10-22.org"))
  '(org-download-image-dir "__assets/img")
  '(package-selected-packages
-   '(web-mode web-beautify tagedit slim-mode scss-mode pug-mode prettier-js simple-httpd helm-css-scss haml-mode emmet-mode counsel-css web-completion-data add-node-modules-path zygospore yatemplate yasnippet-snippets yaml-mode xmlgen ws-butler which-key w3m volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package undo-tree toc-org ssh-agency spaceline powerline snort-mode smart-window restart-emacs rebox2 rainbow-delimiters pydoc popwin poporg plantuml-mode persp-mode pdf-tools pcre2el paredit-everywhere paredit paradox ox-reveal org-journal org-download org-dashboard org-bullets org-brain openwith open-junk-file ob-ipython ob-go neotree move-text macrostep lsp-ui lorem-ipsum linum-relative link-hint js2-mode ivy-yasnippet install-elisp ini-mode indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-c-yasnippet helm-ag graph google-translate gomacro-mode go-mode golden-ratio gitignore-mode gist gh marshal logito pcache ggtags gdscript-mode forge magit ghub closql emacsql-sqlite emacsql treepy git-commit with-editor focus flycheck pkg-info epl flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-syntax names evil-textobj-entire evil-textobj-anyblock evil-text-object-python evil-surround evil-search-highlight-persist highlight evil-python-movement evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-leader evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu evil goto-chg eval-sexp-fu eshell-autojump emojify elisp-slime-nav elfeed dumb-jump dtrt-indent drag-stuff dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat disaster dired-rsync dired-rainbow dired-hacks-utils dired-git-info diminish define-word dashboard page-break-lines dap-mode lsp-treemacs bui lsp-mode treemacs cfrs hydra pfuture posframe lv markdown-mode spinner ht f dash-functional s counsel-etags counsel swiper ivy company-c-headers company comment-dwim-2 column-enforce-mode clean-aindent-mode calfw-org calfw bind-map bind-key autopair auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed apache-mode anzu annotate anki-editor dash request all-the-icons-dired all-the-icons memoize aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async a dracula-theme))
+   '(dante web-mode web-beautify tagedit slim-mode scss-mode pug-mode prettier-js simple-httpd helm-css-scss haml-mode emmet-mode counsel-css web-completion-data add-node-modules-path zygospore yatemplate yasnippet-snippets yaml-mode xmlgen ws-butler which-key w3m volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package undo-tree toc-org ssh-agency spaceline powerline snort-mode smart-window restart-emacs rebox2 rainbow-delimiters pydoc popwin poporg plantuml-mode persp-mode pdf-tools pcre2el paredit-everywhere paredit paradox ox-reveal org-journal org-download org-dashboard org-bullets org-brain openwith open-junk-file ob-ipython ob-go neotree move-text macrostep lsp-ui lorem-ipsum linum-relative link-hint js2-mode ivy-yasnippet install-elisp ini-mode indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-c-yasnippet helm-ag graph google-translate gomacro-mode go-mode golden-ratio gitignore-mode gist gh marshal logito pcache ggtags gdscript-mode forge magit ghub closql emacsql-sqlite emacsql treepy git-commit with-editor focus flycheck pkg-info epl flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-syntax names evil-textobj-entire evil-textobj-anyblock evil-text-object-python evil-surround evil-search-highlight-persist highlight evil-python-movement evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-leader evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu evil goto-chg eval-sexp-fu eshell-autojump emojify elisp-slime-nav elfeed dumb-jump dtrt-indent drag-stuff dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat disaster dired-rsync dired-rainbow dired-hacks-utils dired-git-info diminish define-word dashboard page-break-lines dap-mode lsp-treemacs bui lsp-mode treemacs cfrs hydra pfuture posframe lv markdown-mode spinner ht f dash-functional s counsel-etags counsel swiper ivy company-c-headers company comment-dwim-2 column-enforce-mode clean-aindent-mode calfw-org calfw bind-map bind-key autopair auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed apache-mode anzu annotate anki-editor dash request all-the-icons-dired all-the-icons memoize aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async a dracula-theme))
  '(save-interprogram-paste-before-kill nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
