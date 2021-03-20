@@ -26,4 +26,4 @@ endnote
 #+RESULTS:
 [[file:/ssh:gc-sing:/home/larva/.emacs.d/private/david/_assets/img/loading.svg]]
 
-[[file:_assets/img/loading.svg]]{:height 121, :width 736}
+[[file:_assets/img/loading.svg]]{:height 628, :width 714}
